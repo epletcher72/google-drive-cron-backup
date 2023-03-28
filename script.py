@@ -28,7 +28,9 @@ def healthCheck():
     if not returnCode:
         sendHealthCheckPing(returnCode)
     return returnCode
-
+logsDirectoryExists = os.path.exists("logs")
+if not logsDirectoryExists:
+    os.makedirs("logs")
 isUnhealthy = healthCheck()
 if isUnhealthy:
     returnCode = 0
