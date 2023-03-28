@@ -17,15 +17,15 @@ def sendHealthCheckPing(status = 0):
 
 def healthCheck():
     result = sysrun(["rclone check " + HOME_DIRECTORY + " " + BACKUP])
-    if not result.returnCode:
-        sendHealthCheckPing(result.returnCode)
-    return result.returnCode
+    if not result.returncode:
+        sendHealthCheckPing(result.returncode)
+    return result.returncode
 
 isUnhealthy = healthCheck()
 while isUnhealthy:
     sendHealthCheckPing("start")
     result = sysrun(["rclone sync -P --create-empty-src-dirs " + HOME_DIRECTORY + " " + BACKUP])
-    if result.returnCode:
+    if result.returncode:
         sendHealthCheckPing("fail")
     isUnhealthy = healthCheck()
 
