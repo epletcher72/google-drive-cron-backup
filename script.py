@@ -2,7 +2,7 @@ import urllib.request
 import subprocess
 PING_HASH = "HEALTHCHECKS_PING_HASH"
 HOME_DIRECTORY = "RCLONE_FS"
-BACKUPS = ["RCLONE_FS"]
+BACKUP = "RCLONE_FS"
 WITH_OUTPUT = False
 
 def sysrun(args):
@@ -16,26 +16,16 @@ def sendHealthCheckPing(status = 0):
     urllib.request.urlopen("https://hc-ping.com/" + PING_HASH + parsedStatus, timeout=10)
 
 def healthCheck():
-    returnCode = 0
-    for backup in BACKUPS:
-        result = sysrun(["rclone check " + HOME_DIRECTORY + " " +  backup])
-        if result.returncode:
-            returnCode = result.returncode
-            break
-    if not returnCode:
-        sendHealthCheckPing(returnCode)
-    return returnCode
+    result = sysrun(["rclone check " + HOME_DIRECTORY + " " + BACKUP])
+    if not result.returnCode:
+        sendHealthCheckPing(result.returnCode)
+    return result.returnCode
 
 isUnhealthy = healthCheck()
-if isUnhealthy:
-    returnCode = 0
+while isUnhealthy:
     sendHealthCheckPing("start")
-    for backup in BACKUPS:
-        result = sysrun(["rclone sync -P --create-empty-src-dirs " + HOME_DIRECTORY + " " + backup])
-        if result.returncode:
-            returnCode = result.returncode
-            break
-    if returnCode:
-        sendHealthCheckPing(returnCode)
-    healthCheck()
+    result = sysrun(["rclone sync -P --create-empty-src-dirs " + HOME_DIRECTORY + " " + BACKUP])
+    if result.returnCode:
+        sendHealthCheckPing("fail")
+    isUnhealthy = healthCheck()
 
