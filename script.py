@@ -1,8 +1,5 @@
-import socket
 import urllib.request
-import os
 import subprocess
-import time
 PING_HASH = "HEALTHCHECKS_PING_HASH"
 HOME_DIRECTORY = "RCLONE_FS"
 BACKUPS = ["RCLONE_FS"]
@@ -28,17 +25,13 @@ def healthCheck():
     if not returnCode:
         sendHealthCheckPing(returnCode)
     return returnCode
-logsDirectoryExists = os.path.exists("logs")
-if not logsDirectoryExists:
-    os.makedirs("logs")
+
 isUnhealthy = healthCheck()
 if isUnhealthy:
     returnCode = 0
     sendHealthCheckPing("start")
     for backup in BACKUPS:
-        ts = time.time()
-        logFilePath = "/logs/log" + str(ts) + ".txt"
-        result = sysrun(["rclone sync -P --create-empty-src-dirs " + HOME_DIRECTORY + " " + backup + " > " + logFilePath])
+        result = sysrun(["rclone sync -P --create-empty-src-dirs " + HOME_DIRECTORY + " " + backup])
         if result.returncode:
             returnCode = result.returncode
             break
