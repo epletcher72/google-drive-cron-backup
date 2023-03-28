@@ -6,6 +6,11 @@ import time
 PING_HASH = "HEALTHCHECKS_PING_HASH"
 HOME_DIRECTORY = "RCLONE_FS"
 BACKUPS = ["RCLONE_FS"]
+WITH_OUTPUT = False
+
+def sysrun(args):
+    return subprocess.run(args, shell=True, capture_output=WITH_OUTPUT)
+
 
 def sendHealthCheckPing(status = 0):
     parsedStatus = ""
@@ -16,11 +21,12 @@ def sendHealthCheckPing(status = 0):
 def healthCheck():
     returnCode = 0
     for backup in BACKUPS:
-        result = subprocess.run(["rclone check " + HOME_DIRECTORY + " " +  backup], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=True, capture_output=False, text=False)
+        result = sysrun(["rclone check " + HOME_DIRECTORY + " " +  backup])
         if result.returncode:
             returnCode = result.returncode
             break
-    sendHealthCheckPing(returnCode)
+    if not returnCode:
+        sendHealthCheckPing(returnCode)
     return returnCode
 
 isUnhealthy = healthCheck()
@@ -30,7 +36,7 @@ if isUnhealthy:
     for backup in BACKUPS:
         ts = time.time()
         logFilePath = "/logs/log" + str(ts) + ".txt"
-        result = subprocess.run(["rclone sync -P --create-empty-src-dirs " + HOME_DIRECTORY + " " + backup + " > " + logFilePath],stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=True, capture_output=False, text=False)
+        result = sysrun(["rclone sync -P --create-empty-src-dirs " + HOME_DIRECTORY + " " + backup + " > " + logFilePath])
         if result.returncode:
             returnCode = result.returncode
             break
