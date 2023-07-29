@@ -35,7 +35,9 @@ It is recommended to run this on a Linux server instance, but any computer with 
 * Create a Check on [healthchecks.io](https://healthchecks.io/). Signup may be necessary
 * Edit script.py with the appropriate drive directories from rclone and check hash in lines 4-6.
 * Set up a cron job to run as often as you like.
-* Example using crontab and flock */5 * * * * flock -n /tmp/google_drive_sync.lock </path/to/python3> /path/to/google-drive-cron-backup/script.py
+* Example using crontab and flock:
+
+*/5 * * * * flock -n /tmp/google_drive_sync.lock </path/to/python3> /path/to/google-drive-cron-backup/script.py
 
 ## Documentation
 
