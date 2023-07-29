@@ -1,4 +1,4 @@
-# [Google Drive Cron Backup](https://ethanpletcher.com/){:target="_blank"} &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/epletcher72/google-drive-cron-backup/blob/master/LICENSE) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/epletcher72/google-drive-cron-backup/tree/master#Contributing)
+# [Google Drive Cron Backup](https://ethanpletcher.com/) &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/epletcher72/google-drive-cron-backup/blob/master/LICENSE) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/epletcher72/google-drive-cron-backup/tree/master#Contributing)
 
 Google Drive Cron Backup is a Python program for syncing data between two hosted databases, regardless of provider.
 
@@ -6,7 +6,7 @@ Google Drive Cron Backup is a Python program for syncing data between two hosted
 * **Portable:** Can be used anywhere with minimal external technology setup.
 * **Worry Free:** We support integration with [healthchecks.io](https://healthchecks.io/) so you never have to remember to check that the service is working.
 
-[Learn how to use this project]([https://reactjs.org/docs/getting-started.html](https://github.com/epletcher72/google-drive-cron-backup/tree/master#Installation)).
+[Learn how to use this project](#Installation).
 
 ## Installation
 
