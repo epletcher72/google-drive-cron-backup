@@ -7,6 +7,7 @@ Google Drive Cron Backup is a Python program for syncing data between two hosted
 * **Worry Free:** We support integration with [healthchecks.io](https://healthchecks.io/) so you never have to remember to check that the service is working.
 
 [How to use this project](#Installation)
+
 [How You can contribute :)](#Contributing)
 
 ## System Design
