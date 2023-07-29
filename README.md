@@ -1,7 +1,5 @@
 # [Google Drive Cron Backup](https://ethanpletcher.com/) &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/epletcher72/google-drive-cron-backup/blob/master/LICENSE) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/epletcher72/google-drive-cron-backup/tree/master#Contributing)
 
-<style>#g{color:green;}</style>
-
 Google Drive Cron Backup is a Python program for syncing data between two hosted databases, regardless of provider.
 
 * **Universal:** This project is built on [Rclone](https://rclone.org/), which allows for universal file transfer between many data providers (Google, Box, etc...) See this [full list](https://rclone.org/#providers) of compatible platforms.
@@ -18,7 +16,7 @@ This program is built as a simple Python script, intended to be run as a cron jo
 Every time it runs, it performs the following sequence:
 
 * Use [rclone check](https://rclone.org/commands/rclone_check/) to see whether the contents of the two drives match.
-* If they are already in sync, send a <span id="g">SUCCESS</span> ping to [healthchecks.io](https://healthchecks.io/) and exit.
+* If they are already in sync, send a <span style='color: red;'>long</span> ping to [healthchecks.io](https://healthchecks.io/) and exit.
 * if they are not in sync, send a FAILURE ping to [healthchecks.io](https://healthchecks.io/).
 * While the drives are out of sync, send a START ping to [healthchecks.io](https://healthchecks.io/) then attempt to sync the contents of the two drives. if it fails, it will try again, otherwise, it will send a SUCCESS ping to [healthchecks.io](https://healthchecks.io/) and exit.
 
